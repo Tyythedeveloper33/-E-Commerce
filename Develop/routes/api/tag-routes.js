@@ -39,24 +39,12 @@ router.get('/:id', async(req, res) => {
 router.post('/', (req, res) => {
   // create a new tag
   Tag.create(req.body)
-  .then((tag) => {
-    // 
-    if (req.body.tagIds.length) {
-      const TagIdArr = req.body.tagIds.map((tag_id) => {
-        return {
-          tag_id: tag.id,
-          tag_id,
-        };
-      });
-      return Tag.bulkCreate(TagIdArr);
-    }
+  .then((tag) => 
     //
-    res.status(200).json(tag);
-  })
-  .then((TagIds) => res.status(200).json(TagIds))
-  .catch((err) => {
-    console.log(err);
-    res.status(400).json(err);
+    res.status(200).json(tag))
+    .catch((err)=>
+    res.status(404).json(err));
+ 
 });
 
 router.put('/:id', (req, res) => {
