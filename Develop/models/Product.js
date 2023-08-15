@@ -10,52 +10,48 @@ class Product extends Model {}
 // set up fields and rules for Product model
 Product.init(
   {
-    // define columns
-    id:{
+    id: {
       type: DataTypes.INTEGER,
-      allowNull:  false,
-    primaryKey: true,
-    autoIncrement: true,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
-      product_name:{
-        type: DataTypes.STRING,
-        allowNull:  false,
-      },
-      price:{
-        type: DataTypes.DECIMAL,
-        allowNull:  false,
-       validate:{
-        isDecimal:{
-          args:[true],
-          msg:'price must be a valid decimal value'
-        },
-       stock:{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 10,
-       isNumeric:{
-        args: true,
-        msg: 'price must be a numeric value'
-        },
-      category_id:{
-        type: DataTypes.INTEGER,
-        References:{
-          model: Category,
-          key: 'id',
-        },
-      },
-        
-       },
-       },
+    product_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      validate: {
+        isDecimal: true,
       },
     },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 10,
+      validate: {
+        isNumeric: true,
+      },
+    },
+    category_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'category',
+        key: 'id',
+      },
+    },
+  },
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'product',
-  });
+  }
+)
 
 
 module.exports = Product;
